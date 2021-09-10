@@ -19,8 +19,8 @@ function computerPlay() {
 // Plays a round of R/P/S
 
 function playRound(playerSelection, computerSelection) {
-    playerSelection = playerSelection.toLowerCase();
-    console.log(playerSelection, computerSelection);
+    
+    
 
     if(playerSelection === computerSelection){
         return "Tie";
@@ -32,6 +32,38 @@ function playRound(playerSelection, computerSelection) {
 
 }
 
-const playerSelection = "scissors";
-const computerSelection = computerPlay();
-console.log(playRound(playerSelection, computerSelection));
+
+
+// Plays 5 rounds of RPS
+
+function game() {
+    let round = 0;
+
+    for (let i = 0; i < 5; i++){
+        console.log(playRound(playerPlay(), computerPlay()));
+        round ++;
+        
+    }
+
+}
+
+// makes the user select their choice
+function playerPlay(){
+    playerSelection = window.prompt("choose Rock/Paper/Scissors");
+    playerSelection = playerSelection.toLowerCase();
+
+    switch(playerSelection) {
+        case "rock":
+        case "scissors":
+        case "paper":
+            return playerSelection;
+
+    }
+    
+    alert("please pick a valid option");
+    playerPlay();
+    
+    return playerSelection;
+    
+
+}
