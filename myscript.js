@@ -1,4 +1,28 @@
 
+// add event lsitener to buttons
+const buttons = (document.querySelectorAll(".button"));
+    buttons.forEach(button => 
+        button.addEventListener("click", playRound));
+    
+    
+//  dom stuff
+const container = document.querySelector("#container");
+const round = document.createElement("p");
+const score = document.createElement("p");
+
+let playerScore = 0;
+let computerScore = 0;
+
+score.textContent = "Play a round to start the score";
+
+container.appendChild(round)
+container.appendChild(score);
+
+
+
+
+
+
 // Returns computers choice of R/P/S
 function computerPlay() {
     let random = Math.floor(Math.random() * 3) + 1;
@@ -18,25 +42,51 @@ function computerPlay() {
 
 // Plays a round of R/P/S
 
-function playRound(playerSelection, computerSelection) {
+function playRound() {
     
     
+    let computerSelection = computerPlay();
+    playerSelection = this.textContent;
+    playerSelection = playerSelection.toLowerCase();
 
-    if(playerSelection === computerSelection){
-        return "Tie";
+    if(playerSelection == computerSelection){
+        round.textContent = "Tie";
     } else if (playerSelection === "rock" && computerSelection === "scissors" || playerSelection === "scissors" && computerSelection ==="paper" ) {
-        return "You win " + playerSelection + " beats " + computerSelection; ;
+        round.textContent = `You win ${playerSelection} beats ${computerSelection}`;
+        playerScore ++;
+        score.textContent = `Player score is : ${playerScore} computer score is: ${computerScore}`;
     } else {
-        return "You lose " + playerSelection + " loses to " + computerSelection;
+        round.textContent = `You lose ${playerSelection} loses to ${computerSelection}`;
+        computerScore ++;
+        score.textContent = `Player score is : ${playerScore} computer score is: ${computerScore}`;
     }
+    
+        result();
+    
 
 }
 
 
 
+function result() {
+    if(playerScore >= 5 || computerScore >= 5) {
+    buttons.forEach(button => 
+        button.removeEventListener('click', playRound))
+        let res = (playerScore > computerScore) ? "      Player won" : "        Computer won";
+        score.style.cssText = "color: red";
+        score.textContent += res;
+    }
+
+    
+        
+    
+
+}
+
+
 // Plays 5 rounds of RPS
 
-function game() {
+/**function game() {
     let round = 0;
 
     for (let i = 0; i < 5; i++){
@@ -46,24 +96,15 @@ function game() {
     }
 
 }
+ 
 
 // makes the user select their choice
-function playerPlay(){
-    playerSelection = window.prompt("choose Rock/Paper/Scissors");
+function playerPlay(e){
+    let playerSelection = this.textContent;
     playerSelection = playerSelection.toLowerCase();
 
-    switch(playerSelection) {
-        case "rock":
-        case "scissors":
-        case "paper":
-            return playerSelection;
 
-    }
-    
-    alert("please pick a valid option");
-    playerPlay();
-    
-    return playerSelection;
+    return playRound(playerSelection);
     
 
-}
+} */
